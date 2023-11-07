@@ -36,8 +36,8 @@ def recognize():
     rgb_image = Image.new("RGB", img.size, (255, 255, 255))
     rgb_image.paste(img, mask=img.split()[3])
     img = rgb_image
-    plt.imshow(rgb_image)
-    plt.show()
+    #plt.imshow(rgb_image)
+    #plt.show()
     img = img.convert('L')
     inverted_image = Image.new("L", img.size)
     pixels = img.load()
@@ -46,9 +46,9 @@ def recognize():
     for i in range(img.width):
         for j in range(img.height):
             inverted_pixels[i, j] = 255 - pixels[i, j]
-            print(inverted_pixels[i, j])
-    plt.imshow(inverted_image)
-    plt.show()
+            #print(inverted_pixels[i, j])
+    #plt.imshow(inverted_image)
+    #plt.show()
     img= inverted_image
     transform = transforms.Compose([transforms.Resize(224),
                                     transforms.ToTensor(),
@@ -56,11 +56,11 @@ def recognize():
     with torch.no_grad():
         img = transform(img)
         img = img.cuda().unsqueeze(0)
-        print("shape", img.shape)
+        #print("shape", img.shape)
         out = model(img)
         a = torch.softmax(out, 1)
         prb, predict = torch.max(a, 1)
-        print(prb, predict.item())
+        #print(prb, predict.item())
     # 图像预处理
 
     # 使用预训练的模型进行预测
